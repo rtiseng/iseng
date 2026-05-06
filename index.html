@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#1e1e1e,#000);
+  color:white;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* Splash */
+#opening {
+  position:fixed;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:black;
+}
+
+/* Main */
+#main {
+  display:none;
+  padding:20px;
+}
+
+/* Card */
+.card {
+  background:rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding:20px;
+  border-radius:20px;
+}
+
+/* Photo */
+img {
+  width:100%;
+  border-radius:15px;
+  margin-top:15px;
+  transform:scale(0.8);
+  opacity:0;
+  transition:1s;
+}
+
+/* Text */
+#text {
+  margin-top:15px;
+  font-size:16px;
+  min-height:50px;
+}
+
+/* Button */
+button {
+  padding:12px 20px;
+  border:none;
+  border-radius:25px;
+  background:#ff4d6d;
+  color:white;
+  font-size:16px;
+  margin-top:20px;
+}
+
+/* Hearts */
+.heart {
+  position:absolute;
+  animation:fall 7s linear infinite;
+}
+@keyframes fall {
+  0%{transform:translateY(-10%);}
+  100%{transform:translateY(110vh);}
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="opening">
+  <h2>💌 For You</h2>
+  <p>Ada sesuatu kecil buat kamu...</p>
+  <button onclick="start()">💖 Buka</button>
+</div>
+
+<div id="main">
+  <div class="card">
+    <h3>Untuk Kamu 🤍</h3>
+    <img id="photo" src="foto.jpg">
+    <div id="text"></div>
+  </div>
+</div>
+
+<audio id="music">
+  <source src="lagu.mp3" type="audio/mp3">
+</audio>
+
+<script>
+function start(){
+  document.getElementById("opening").style.display="none";
+  document.getElementById("main").style.display="block";
+
+  let photo = document.getElementById("photo");
+  let music = document.getElementById("music");
+
+  music.play();
+
+  setTimeout(()=>{
+    photo.style.opacity=1;
+    photo.style.transform="scale(1)";
+  },300);
+
+  typeText("Hari baru, semangat baru...\nKamu pasti bisa 💖\nAku selalu ada buat kamu 🤍");
+}
+
+function typeText(text){
+  let i=0;
+  let el=document.getElementById("text");
+  el.innerHTML="";
+
+  function typing(){
+    if(i<text.length){
+      if(text.charAt(i)=="\n"){
+        el.innerHTML += "<br>";
+      } else {
+        el.innerHTML += text.charAt(i);
+      }
+      i++;
+      setTimeout(typing,40);
+    }
+  }
+  typing();
+}
+
+/* hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),7000);
+},500);
+</script>
+
+</body>
+</html>
